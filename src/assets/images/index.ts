@@ -1,6 +1,7 @@
+import googleLogo from './google-logo.png';
 import logo from './logo.png';
 
 export {
-  logo
+  googleLogo, logo
 };
 
