@@ -1,6 +1,6 @@
 import { logo } from "@/src/assets"
 import { ActivityIndicator, Image, View } from "react-native"
-import { Container } from "../core"
+import { Container } from "../core/container/container/container"
 
 export const Loading: React.FC = () => {
   return (

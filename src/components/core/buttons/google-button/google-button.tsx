@@ -1,8 +1,8 @@
 import { googleLogo } from '@/src/assets';
 import { Image, Text, TouchableOpacity } from 'react-native';
-import { AppleButtonProps } from './props';
+import { GoogleButtonProps } from './props';
 
-export const GoogleButton: React.FC<AppleButtonProps> = ({ className, ...rest }) => {
+export const GoogleButton: React.FC<GoogleButtonProps> = ({ className, ...rest }) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}

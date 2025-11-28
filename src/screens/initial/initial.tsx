@@ -2,6 +2,7 @@ import { logo } from "@/src/assets"
 import { AppleButton } from "@/src/components/core/buttons/apple-button/apple-button"
 import { GoogleButton } from "@/src/components/core/buttons/google-button/google-button"
 import { Container } from "@/src/components/core/container/container/container"
+import { router } from "expo-router"
 import { Image, Platform, Text, View } from "react-native"
 
 export const Initial: React.FC = () => {
@@ -16,7 +17,7 @@ export const Initial: React.FC = () => {
         </View>
         <View className="w-full gap-3">
           {Platform.OS === 'ios' && (
-            <AppleButton />
+            <AppleButton onPress={() => router.push('/onboarding/eating-style')} />
           )}
           <GoogleButton />
         </View>

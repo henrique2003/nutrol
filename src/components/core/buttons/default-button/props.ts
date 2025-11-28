@@ -1,4 +1,4 @@
 import { ComponentProps } from "react";
 import { TouchableOpacity } from "react-native";
 
-export type GoogleButtonProps = ComponentProps<typeof TouchableOpacity> & {}
+export type DefaultButtonProps = ComponentProps<typeof TouchableOpacity> & {}
