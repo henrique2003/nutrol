@@ -28,8 +28,8 @@ export const EatingStyle: React.FC = () => {
         </View>
         <View className="flex-1 w-full  mb-12">
           <View className="flex-1 justify-center items-center">
-            <Text className="text-black text-xl  text-center font-bold leading-5">Você segue algum estilo alimentar específico?</Text>
-            <Text className="text-grey mt-3 text-sm text-center font-medium leading-5">Escolha sua preferência.</Text>
+            <Text className="text-black text-2xl pt-2  text-center font-bold leading-5">Você segue algum estilo alimentar específico?</Text>
+            <Text className="text-grey mt-2 text-sm text-center font-medium leading-5">Escolha sua preferência.</Text>
           </View>
           <View className="w-full gap-3">
             <OnboardingOption
