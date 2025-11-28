@@ -22,41 +22,41 @@ export const EatingStyle: React.FC = () => {
 
   return (
     <Container>
-      <View className="justify-between items-center flex-1 w-full">
+      <View className="justify-between items-center mt-5 flex-1 w-full">
         <View className="w-full flex-row mt-5">
           <ProgressBar value={12.5} />
         </View>
-        <View className="flex-1 w-full mb-12">
+        <View className="flex-1 w-full  mb-12">
           <View className="flex-1 justify-center items-center">
-            <Text className="text-black text-lg text-center font-bold leading-5">Você segue algum estilo alimentar específico?</Text>
-            <Text className="text-grey mt-3 text-md text-center font-medium leading-5">Escolha sua preferência.</Text>
+            <Text className="text-black text-xl  text-center font-bold leading-5">Você segue algum estilo alimentar específico?</Text>
+            <Text className="text-grey mt-3 text-sm text-center font-medium leading-5">Escolha sua preferência.</Text>
           </View>
           <View className="w-full gap-3">
             <OnboardingOption
               text='Tradicional'
               subtext="sem restrições"
-              icon={<Beef size={22} color={isTradicionalSelected ? COLORS.white : COLORS.black} />}
+              icon={<Beef size={30} color={isTradicionalSelected ? COLORS.white : COLORS.black} />}
               selected={isTradicionalSelected}
               onPress={() => handleChangeIOption(EatingStyleEnum.Traditional)}
             />
             <OnboardingOption
               text='Vegano'
               subtext="não consome nada animal"
-              icon={<LeafyGreen size={22} color={isVeganSelected ? COLORS.white : COLORS.black} />}
+              icon={<LeafyGreen size={30} color={isVeganSelected ? COLORS.white : COLORS.black} />}
               selected={isVeganSelected}
               onPress={() => handleChangeIOption(EatingStyleEnum.Vegan)}
             />
             <OnboardingOption
               text='Vegetariano'
               subtext="não consome carne"
-              icon={<MaterialCommunityIcons name="egg-fried" size={25} color={isVegetarianaSelected ? COLORS.white : COLORS.black} />}
+              icon={<MaterialCommunityIcons name="egg-fried" size={30} color={isVegetarianaSelected ? COLORS.white : COLORS.black} />}
               selected={isVegetarianaSelected}
               onPress={() => handleChangeIOption(EatingStyleEnum.Vegetarian)}
             />
             <OnboardingOption
               text='Pescetariano'
               subtext="peixe apenas"
-              icon={<Ionicons name="fish-outline" size={24} color={isPesceratianSelected ? COLORS.white : COLORS.black} />}
+              icon={<Ionicons name="fish-outline" size={30} color={isPesceratianSelected ? COLORS.white : COLORS.black} />}
               selected={isPesceratianSelected}
               onPress={() => handleChangeIOption(EatingStyleEnum.Pesceratian)}
             />
