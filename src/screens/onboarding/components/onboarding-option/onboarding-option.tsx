@@ -12,7 +12,7 @@ export const OnboardingOption: React.FC<OnboardingOptionProps> = ({
     <TouchableOpacity
       activeOpacity={0.6}
       className={
-        `w-full rounded-lg flex-row justify-start items-center gap-3 px-4 h-[60px] ${selected ? 'bg-black' : 'bg-lightGrey'}`
+        `w-full rounded-xl flex-row justify-start items-center gap-3 px-4 h-[60px] ${selected ? 'bg-black' : 'bg-lightGrey'}`
       }
       {...rest}
     >
