@@ -58,6 +58,7 @@
     "expo-web-browser": "~15.0.7",
     "git-commit-msg-linter": "^5.0.8",
     "lodash": "^4.17.21",
+    "lucide-react-native": "^0.555.0",
     "moti": "^0.30.0",
     "nanoid": "^5.1.6",
     "nativewind": "^4.2.1",
