@@ -1,14 +1,25 @@
-import { domeCook } from "@/src/assets"
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
 import { COLORS } from "@/src/consts/colors"
+import { EatingStyleEnum } from "@/src/domain/profile/enums/eating-style.enum"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { Image, Text, View } from "react-native"
+import { Beef, LeafyGreen } from 'lucide-react-native'
+import { Text, View } from "react-native"
 import { OnboardingOption } from "../components/onboarding-option/onboarding-option"
 import { ProgressBar } from "../components/progress-bar/progress-bar"
+import { useEatingStyleHook } from "./hook"
 
 export const EatingStyle: React.FC = () => {
+  const {
+    handleChangeIOption,
+    isPesceratianSelected,
+    isTradicionalSelected,
+    isVeganSelected,
+    isVegetarianaSelected,
+    isDisabledButton
+  } = useEatingStyleHook()
+
   return (
     <Container>
       <View className="justify-between items-center flex-1 w-full">
@@ -24,27 +35,35 @@ export const EatingStyle: React.FC = () => {
             <OnboardingOption
               text='Tradicional'
               subtext="sem restrições"
-              icon={<Image source={domeCook} />}
+              icon={<Beef size={22} color={isTradicionalSelected ? COLORS.white : COLORS.black} />}
+              selected={isTradicionalSelected}
+              onPress={() => handleChangeIOption(EatingStyleEnum.Traditional)}
             />
             <OnboardingOption
               text='Vegano'
               subtext="não consome nada animal"
-              icon={<MaterialCommunityIcons name="food-drumstick-off-outline" size={24} color={COLORS.black} />}
+              icon={<LeafyGreen size={22} color={isVeganSelected ? COLORS.white : COLORS.black} />}
+              selected={isVeganSelected}
+              onPress={() => handleChangeIOption(EatingStyleEnum.Vegan)}
             />
             <OnboardingOption
               text='Vegetariano'
               subtext="não consome carne"
-              icon={<MaterialCommunityIcons name="egg-fried" size={24} color={COLORS.black} />}
+              icon={<MaterialCommunityIcons name="egg-fried" size={25} color={isVegetarianaSelected ? COLORS.white : COLORS.black} />}
+              selected={isVegetarianaSelected}
+              onPress={() => handleChangeIOption(EatingStyleEnum.Vegetarian)}
             />
             <OnboardingOption
               text='Pescetariano'
               subtext="peixe apenas"
-              icon={<Ionicons name="fish-outline" size={24} color="black" />}
+              icon={<Ionicons name="fish-outline" size={24} color={isPesceratianSelected ? COLORS.white : COLORS.black} />}
+              selected={isPesceratianSelected}
+              onPress={() => handleChangeIOption(EatingStyleEnum.Pesceratian)}
             />
           </View>
         </View>
         <View className="w-full">
-          <DefaultButton className="w-full" disabled />
+          <DefaultButton className="w-full" disabled={isDisabledButton} />
         </View>
       </View>
     </Container>
