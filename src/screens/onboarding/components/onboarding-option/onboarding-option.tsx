@@ -19,7 +19,9 @@ export const OnboardingOption: React.FC<OnboardingOptionProps> = ({
       {icon}
       <Text className={`text-md font-bold ${selected ? 'text-white' : 'text-black'}`}>
         {text}{' '}
-        <Text className={`font-semibold ${selected ? 'text-white' : 'text-grey'}`}>({subtext})</Text>
+        {subtext && (
+          <Text className={`font-semibold ${selected ? 'text-white' : 'text-grey'}`}>({subtext})</Text>
+        )}
       </Text>
     </TouchableOpacity>
   )

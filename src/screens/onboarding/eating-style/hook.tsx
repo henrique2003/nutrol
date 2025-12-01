@@ -1,17 +1,23 @@
-import { EatingStyleEnum } from "@/src/domain/profile/enums/eating-style.enum";
+import { EatingStyle } from "@/src/domain/profile/enums/eating-style.enum";
+import { router } from "expo-router";
 import { useState } from "react";
 
 export function useEatingStyleHook() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null)
 
-  const isTradicionalSelected = selectedOption === EatingStyleEnum.Traditional
-  const isPesceratianSelected = selectedOption === EatingStyleEnum.Pesceratian
-  const isVegetarianaSelected = selectedOption === EatingStyleEnum.Vegetarian
-  const isVeganSelected = selectedOption === EatingStyleEnum.Vegan
+  const isTradicionalSelected = selectedOption === EatingStyle.Traditional
+  const isPesceratianSelected = selectedOption === EatingStyle.Pesceratian
+  const isVegetarianaSelected = selectedOption === EatingStyle.Vegetarian
+  const isVeganSelected = selectedOption === EatingStyle.Vegan
+
   const isDisabledButton = !selectedOption
 
   function handleChangeIOption(id: string) {
     setSelectedOption(id)
+  }
+
+  function handleClickContinue(): void {
+    router.push('/onboarding/goal')
   }
 
   return {
@@ -20,6 +26,7 @@ export function useEatingStyleHook() {
     isPesceratianSelected,
     isVegetarianaSelected,
     isVeganSelected,
-    isDisabledButton
+    isDisabledButton,
+    handleClickContinue
   }
 }

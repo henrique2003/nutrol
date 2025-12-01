@@ -1,7 +1,7 @@
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
 import { COLORS } from "@/src/consts/colors"
-import { EatingStyleEnum } from "@/src/domain/profile/enums/eating-style.enum"
+import { EatingStyle as EatingStyleEnum } from "@/src/domain/profile/enums/eating-style.enum"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Beef, LeafyGreen } from 'lucide-react-native'
@@ -17,7 +17,8 @@ export const EatingStyle: React.FC = () => {
     isTradicionalSelected,
     isVeganSelected,
     isVegetarianaSelected,
-    isDisabledButton
+    isDisabledButton,
+    handleClickContinue
   } = useEatingStyleHook()
 
   return (
@@ -63,7 +64,7 @@ export const EatingStyle: React.FC = () => {
           </View>
         </View>
         <View className="w-full">
-          <DefaultButton className="w-full" disabled={isDisabledButton} />
+          <DefaultButton className="w-full" disabled={isDisabledButton} onPress={handleClickContinue} />
         </View>
       </View>
     </Container>

@@ -1,4 +1,4 @@
-export enum EatingStyleEnum {
+export enum EatingStyle {
   Traditional = '1',
   Vegan = '2',
   Vegetarian = '3',
