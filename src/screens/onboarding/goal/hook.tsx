@@ -1,4 +1,5 @@
-import { Goal } from "@/src/domain/profile/enums/goal";
+import { Goal } from "@/src/domain/profile/enums/goal.enum";
+import { router } from "expo-router";
 import { useState } from "react";
 
 export function useGoalHook() {
@@ -10,15 +11,20 @@ export function useGoalHook() {
   
   const isDisabledButton = !selectedOption
 
-  function handleChangeIOption(id: Goal) {
+  function handleChangeOption(id: Goal) {
     setSelectedOption(id)
+  }
+  
+  function handleClickContinue(): void {
+    router.push('/onboarding/goal-date')
   }
 
   return {
-    handleChangeIOption,
+    handleChangeOption,
     isGainMuscleSelected,
     isAdjustDietSelected,
     isLoseWeightSelected,
-    isDisabledButton
+    isDisabledButton,
+    handleClickContinue
   }
 }

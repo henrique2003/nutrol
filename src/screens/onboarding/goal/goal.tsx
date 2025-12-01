@@ -1,7 +1,7 @@
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
 import { COLORS } from "@/src/consts/colors"
-import { Goal as GoalEnum } from "@/src/domain/profile/enums/goal"
+import { Goal as GoalEnum } from "@/src/domain/profile/enums/goal.enum"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { router } from "expo-router"
 import { BicepsFlexed, PencilRuler, Salad } from 'lucide-react-native'
@@ -12,11 +12,12 @@ import { useGoalHook } from "./hook"
 
 export const Goal: React.FC = () => {
   const {
-    handleChangeIOption,
+    handleChangeOption,
     isAdjustDietSelected,
     isGainMuscleSelected,
     isLoseWeightSelected,
-    isDisabledButton
+    isDisabledButton,
+    handleClickContinue
   } = useGoalHook()
 
   return (
@@ -43,24 +44,24 @@ export const Goal: React.FC = () => {
               text='Ajustar minha dieta'
               icon={<Salad size={30} color={isAdjustDietSelected ? COLORS.white : COLORS.black} />}
               selected={isAdjustDietSelected}
-              onPress={() => handleChangeIOption(GoalEnum.AdjustDiet)}
+              onPress={() => handleChangeOption(GoalEnum.AdjustDiet)}
             />
             <OnboardingOption
               text='Ganhar massa'
               icon={<BicepsFlexed size={30} color={isGainMuscleSelected ? COLORS.white : COLORS.black} />}
               selected={isGainMuscleSelected}
-              onPress={() => handleChangeIOption(GoalEnum.GainMuscle)}
+              onPress={() => handleChangeOption(GoalEnum.GainMuscle)}
             />
             <OnboardingOption
               text='Perder peso'
               icon={<PencilRuler size={30} color={isLoseWeightSelected ? COLORS.white : COLORS.black} />}
               selected={isLoseWeightSelected}
-              onPress={() => handleChangeIOption(GoalEnum.LoseWeight)}
+              onPress={() => handleChangeOption(GoalEnum.LoseWeight)}
             />
           </View>
         </View>
         <View className="w-full">
-          <DefaultButton className="w-full" disabled={isDisabledButton} />
+          <DefaultButton className="w-full" disabled={isDisabledButton} onPress={handleClickContinue} />
         </View>
       </View>
     </Container>
