@@ -17,7 +17,7 @@ export function useNumberOfMealsHook() {
   }
 
   function handleClickContinue(): void {
-    router.push('/onboarding/goal')
+    router.push('/onboarding/exercises-frequency')
   }
 
   return {
