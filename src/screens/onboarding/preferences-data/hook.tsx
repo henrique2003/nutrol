@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import { useState } from "react";
 
 export function usePreferencesDataHook() {
@@ -13,7 +14,7 @@ export function usePreferencesDataHook() {
   }
 
   function handleClickContinue(): void {
-    // router.push('/onboarding/exercises-frequency')
+    router.push('/onboarding/success-loading')
   }
 
   return {
