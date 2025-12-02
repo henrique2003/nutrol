@@ -17,7 +17,7 @@ export function useExercisesFrequencyHook() {
   }
 
   function handleClickContinue(): void {
-    router.push('/onboarding/goal')
+    router.push('/onboarding/profile-data')
   }
 
   return {

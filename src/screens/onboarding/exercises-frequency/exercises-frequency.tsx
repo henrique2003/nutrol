@@ -30,7 +30,7 @@ export const ExercisesFrequency: React.FC = () => {
             <MaterialIcons name="keyboard-arrow-left" size={30} color="black" />
           </Pressable>
           <View className="w-full flex-row mt-4 max-w-[280px]">
-            <ProgressBar value={50} />
+            <ProgressBar value={62.5} />
           </View>
         </View>
         <View className="flex-1 w-full  mb-12">
