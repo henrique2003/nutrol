@@ -54,6 +54,7 @@ export function useEatingStyleHook() {
     }
 
     setLoading(false)
+    
     router.push('/onboarding/goal-weight')
   }
 
