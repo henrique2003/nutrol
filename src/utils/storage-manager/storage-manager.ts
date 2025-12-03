@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Result } from "../result/result";
 
 export class StorageManager {
-  static getItem = async (key: string): Promise<Result<string | null>> => {
+  static getItem = async<T>(key: string): Promise<Result<T | null>> => {
   try {
     const raw = await AsyncStorage.getItem(key);
     
@@ -23,7 +23,7 @@ export class StorageManager {
   }
 };
 
-  static setItem = async (key: string, value: string): Promise<Result<void>> => {
+  static setItem = async<T>(key: string, value: T): Promise<Result<void>> => {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));
 

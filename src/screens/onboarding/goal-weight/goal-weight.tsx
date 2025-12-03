@@ -8,9 +8,9 @@ import { BicepsFlexed, PencilRuler, Salad } from 'lucide-react-native'
 import { Pressable, Text, View } from "react-native"
 import { OnboardingOption } from "../components/onboarding-option/onboarding-option"
 import { ProgressBar } from "../components/progress-bar/progress-bar"
-import { useGoalHook } from "./hook"
+import { useGoalWeightHook } from "./hook"
 
-export const Goal: React.FC = () => {
+export const GoalWeight: React.FC = () => {
   const {
     handleChangeOption,
     isAdjustDietSelected,
@@ -18,7 +18,7 @@ export const Goal: React.FC = () => {
     isLoseWeightSelected,
     isDisabledButton,
     handleClickContinue
-  } = useGoalHook()
+  } = useGoalWeightHook()
 
   return (
     <Container>
