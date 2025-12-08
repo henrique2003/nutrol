@@ -1,4 +1,4 @@
-import { useUserCtx } from "@/src/context/user/hook";
+import { useUserCtx } from "@/src/context/auth/hook";
 import { UserService } from "@/src/infra/api/services/user-service";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";

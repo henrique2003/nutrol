@@ -1,16 +1,16 @@
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
 import { COLORS } from "@/src/consts/colors"
-import { Goal as GoalEnum } from "@/src/domain/profile/enums/goal.enum"
+import { GoalWeight as GoalEnum } from "@/src/domain/user/enums/goal-waight.enum"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { router } from "expo-router"
 import { BicepsFlexed, PencilRuler, Salad } from 'lucide-react-native'
 import { Pressable, Text, View } from "react-native"
 import { OnboardingOption } from "../components/onboarding-option/onboarding-option"
 import { ProgressBar } from "../components/progress-bar/progress-bar"
-import { useGoalHook } from "./hook"
+import { useGoalWeightHook } from "./hook"
 
-export const Goal: React.FC = () => {
+export const GoalWeight: React.FC = () => {
   const {
     handleChangeOption,
     isAdjustDietSelected,
@@ -18,7 +18,7 @@ export const Goal: React.FC = () => {
     isLoseWeightSelected,
     isDisabledButton,
     handleClickContinue
-  } = useGoalHook()
+  } = useGoalWeightHook()
 
   return (
     <Container>

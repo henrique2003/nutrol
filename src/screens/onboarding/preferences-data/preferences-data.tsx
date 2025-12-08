@@ -15,6 +15,7 @@ export const PreferencesData: React.FC = () => {
     handleChangeRestrictions,
     preferences,
     restrictions,
+    isDisabledButton
   } = usePreferencesDataHook()
 
   return (
@@ -56,7 +57,7 @@ export const PreferencesData: React.FC = () => {
           </View>
         </View>
         <View className="w-full">
-          <DefaultButton className="w-full" onPress={handleClickContinue} />
+          <DefaultButton className="w-full" disabled={isDisabledButton} onPress={handleClickContinue} />
         </View>
       </View>
     </Container>

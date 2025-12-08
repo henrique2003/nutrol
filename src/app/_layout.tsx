@@ -13,7 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import "@/src/styles/global.css";
 import 'react-native-get-random-values';
 import Toast from 'react-native-toast-message';
-import { UserProvider } from '../context/user/user';
+import { AuthProvider } from '../context/auth/auth';
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -30,13 +30,13 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={DefaultTheme}>
-      <UserProvider>
+      <AuthProvider>
         <Stack screenOptions={{ headerShown: false }} />
         <StatusBar style="auto" />
         <Toast
           topOffset={100}
         />
-      </UserProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

@@ -1,37 +1,37 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
 import { User } from "@/src/domain/user/entities/user";
-import { EatingStyle } from "@/src/domain/user/enums/eating-style.enum";
+import { GoalWeight } from "@/src/domain/user/enums/goal-waight.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
 import { useState } from "react";
 import Toast from "react-native-toast-message";
 
-export function useEatingStyleHook() {
-  const [selectedOption, setSelectedOption] = useState<EatingStyle | null>(null)
+export function useGoalWeightHook() {
+  const [selectedOption, setSelectedOption] = useState<GoalWeight | null>(null)
   const [loading, setLoading] = useState(false)
 
   const { defineUser, user } = useAuthCtx()
 
-  const isTradicionalSelected = selectedOption === EatingStyle.Traditional
-  const isPesceratianSelected = selectedOption === EatingStyle.Pesceratian
-  const isVegetarianaSelected = selectedOption === EatingStyle.Vegetarian
-  const isVeganSelected = selectedOption === EatingStyle.Vegan
-
+  const isAdjustDietSelected = selectedOption === GoalWeight.AdjustDiet
+  const isGainMuscleSelected = selectedOption === GoalWeight.GainMuscle
+  const isLoseWeightSelected = selectedOption === GoalWeight.LoseWeight
+  
   const isDisabledButton = !selectedOption || loading
 
-  function handleChangeOption(id: EatingStyle) {
+  function handleChangeOption(id: GoalWeight) {
     setSelectedOption(id)
   }
-
+  
   async function handleClickContinue(): Promise<void> {
     setLoading(true)
+    
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    
-    if (selectedOption){
-      newUser.eatingStyle = selectedOption
+
+    if (selectedOption) {
+      newUser.goalWeight = selectedOption
     }
 
     const result = await userRepository.update(newUser)
@@ -58,15 +58,14 @@ export function useEatingStyleHook() {
 
     setLoading(false)
     
-    router.push('/onboarding/goal-weight')
+    router.push('/onboarding/goal-date')
   }
 
   return {
     handleChangeOption,
-    isTradicionalSelected,
-    isPesceratianSelected,
-    isVegetarianaSelected,
-    isVeganSelected,
+    isGainMuscleSelected,
+    isAdjustDietSelected,
+    isLoseWeightSelected,
     isDisabledButton,
     handleClickContinue
   }

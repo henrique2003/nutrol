@@ -1,6 +1,6 @@
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
-import { ExercisesFrequency as ExercisesFrequencyEnum } from "@/src/domain/profile/enums/exercises-frequency.enum"
+import { ExercisesFrequency as ExercisesFrequencyEnum } from "@/src/domain/user/enums/exercises-frequency.enum"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { router } from "expo-router"
 import { Pressable, Text, View } from "react-native"
