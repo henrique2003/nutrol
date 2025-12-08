@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { User } from "../domain/user/entities/user";
 import { Result } from "../utils/result/result";
 
