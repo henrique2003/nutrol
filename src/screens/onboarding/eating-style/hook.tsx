@@ -1,6 +1,6 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
-import { EatingStyle } from "@/src/domain/profile/enums/eating-style.enum";
 import { User } from "@/src/domain/user/entities/user";
+import { EatingStyle } from "@/src/domain/user/enums/eating-style.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
@@ -29,7 +29,10 @@ export function useEatingStyleHook() {
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    newUser.eatingStyle = selectedOption
+    
+    if (selectedOption){
+      newUser.eatingStyle = selectedOption
+    }
 
     const result = await userRepository.update(newUser)
     if (result.isFailure()) {

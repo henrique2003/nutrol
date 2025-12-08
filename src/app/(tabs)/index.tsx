@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 
-const Dashboard: React.FC = () => {
+const DashboardScreen: React.FC = () => {
   return <View></View>
 }
 
-export default Dashboard;
+export default DashboardScreen;

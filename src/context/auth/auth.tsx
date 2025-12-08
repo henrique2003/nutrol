@@ -11,7 +11,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     id: '',
     email: '',
     name: '',
-    password: ''
+    password: '',
+    age: undefined,
+    eatingStyle: undefined,
+    exerciseFrequency: undefined,
+    goalDate: undefined,
+    goalWeight: undefined,
+    height: undefined,
+    numberOfMeals: undefined,
+    preferences: undefined,
+    restrictions: undefined,
+    weight: undefined
   });
 
   function defineUser(user: User): void {
@@ -47,7 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else if (!user.age || !user.weight || !user.height) {
         return router.push('/onboarding/profile-data')
       } else {
-        return router.push('/(tabs)/index')
+        return router.push('/(tabs)')
       }
     })()
   }, [])

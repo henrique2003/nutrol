@@ -17,9 +17,9 @@ export class UserRepository {
     }
   }
   
-  public async create(user: User): Promise<Result<void>> {
+  public async create(user: User): Promise<Result<User>> {
     try {
-      return Result.success()
+      return Result.success(user)
     } catch (error) {
       return Result.failure('Erro ao buscar usuário')
     }
@@ -27,7 +27,7 @@ export class UserRepository {
   
   public async update(user: User): Promise<Result<User>> {
     try {
-      return Result.success()
+      return Result.success(user)
     } catch (error) {
       return Result.failure('Erro ao buscar usuário')
     }

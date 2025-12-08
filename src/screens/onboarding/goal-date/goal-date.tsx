@@ -1,6 +1,6 @@
 import { DefaultButton } from "@/src/components/core/buttons/default-button/default-button"
 import { Container } from "@/src/components/core/container/container/container"
-import { GoalDate as GoalDateEnum } from "@/src/domain/profile/enums/goal-date.enum"
+import { GoalDate as GoalDateEnum } from "@/src/domain/user/enums/goal-date.enum"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { router } from "expo-router"
 import { Pressable, Text, View } from "react-native"

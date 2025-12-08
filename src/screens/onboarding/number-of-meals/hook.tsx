@@ -1,6 +1,6 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
-import { NumberOfMeals } from "@/src/domain/profile/enums/number-of-meals.enum";
 import { User } from "@/src/domain/user/entities/user";
+import { NumberOfMeals } from "@/src/domain/user/enums/number-of-meals.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
@@ -30,7 +30,10 @@ export function useNumberOfMealsHook() {
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    newUser.numberOfMeals = selectedOption
+
+    if (selectedOption) {
+      newUser.numberOfMeals = selectedOption
+    }
 
     const result = await userRepository.update(newUser)
     if (result.isFailure()) {

@@ -1,6 +1,6 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
-import { GoalDate } from "@/src/domain/profile/enums/goal-date.enum";
 import { User } from "@/src/domain/user/entities/user";
+import { GoalDate } from "@/src/domain/user/enums/goal-date.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
@@ -30,7 +30,10 @@ export function useGoalDateHook() {
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    newUser.goalDate = selectedOption
+
+    if (selectedOption) {
+      newUser.goalDate = selectedOption
+    }
 
     const result = await userRepository.update(newUser)
     if (result.isFailure()) {

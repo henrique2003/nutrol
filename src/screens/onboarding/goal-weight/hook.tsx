@@ -1,6 +1,6 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
-import { GoalWeight } from "@/src/domain/profile/enums/goal-weight";
 import { User } from "@/src/domain/user/entities/user";
+import { GoalWeight } from "@/src/domain/user/enums/goal-waight.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
@@ -29,7 +29,10 @@ export function useGoalWeightHook() {
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    newUser.goalWeight = selectedOption
+
+    if (selectedOption) {
+      newUser.goalWeight = selectedOption
+    }
 
     const result = await userRepository.update(newUser)
     if (result.isFailure()) {

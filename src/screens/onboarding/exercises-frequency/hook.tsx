@@ -1,6 +1,6 @@
 import { useAuthCtx } from "@/src/context/auth/hook";
-import { ExercisesFrequency } from "@/src/domain/profile/enums/exercises-frequency.enum";
 import { User } from "@/src/domain/user/entities/user";
+import { ExercisesFrequency } from "@/src/domain/user/enums/exercises-frequency.enum";
 import { UserRepository } from "@/src/repository/user.repository";
 import { StorageManager } from "@/src/utils/storage-manager/storage-manager";
 import { router } from "expo-router";
@@ -30,7 +30,10 @@ export function useExercisesFrequencyHook() {
     const userRepository = new UserRepository()
 
     const newUser: User = { ...user }
-    newUser.exerciseFrequency = selectedOption
+
+    if (selectedOption) { 
+      newUser.exerciseFrequency = selectedOption
+    }
 
     const result = await userRepository.update(newUser)
     if (result.isFailure()) {
