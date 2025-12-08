@@ -4,8 +4,11 @@ import { GoogleButton } from "@/src/components/core/buttons/google-button/google
 import { Container } from "@/src/components/core/container/container/container"
 import { router } from "expo-router"
 import { Image, Platform, Text, View } from "react-native"
+import { useInitial } from "./props"
 
 export const Initial: React.FC = () => {
+  const { handleClickLoginWithGoogle } = useInitial()
+
   return (
     <Container>
       <View className="flex-1 w-full">
@@ -19,7 +22,7 @@ export const Initial: React.FC = () => {
           {Platform.OS === 'ios' && (
             <AppleButton onPress={() => router.push('/onboarding/eating-style')} />
           )}
-          <GoogleButton />
+          <GoogleButton onPress={async () => handleClickLoginWithGoogle()} />
         </View>
       </View>
     </Container>

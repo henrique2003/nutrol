@@ -33,6 +33,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
+      // await StorageManager.clear()
+
       const result = await StorageManager.getItem<User>('user')
       if (!result || !result.getValue()) {
         return router.push('/')
