@@ -2,15 +2,20 @@
   "expo": {
     "name": "nutrol",
     "slug": "nutrol",
+    "owner": "devhenrique",
+    "scheme": "nutrol",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "nutrol",
+    "platforms": ["ios", "android", "web"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nutrol.apps"
+      "bundleIdentifier": "com.nutrol.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "softwareKeyboardLayoutMode": "pan",
@@ -43,7 +48,11 @@
       "typedRoutes": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "eas": {
+        "projectId": "d7c484b4-a356-4b8c-b834-d125b08cf826"
+      },
+      "redirectUri": "nutrol://auth/callback"
     }
   }
 }
