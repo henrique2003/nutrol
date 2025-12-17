@@ -19,6 +19,18 @@
       },
       "developmentClient": false,
       "autoIncrement": true
+    },
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "6756278108"
+      }
     }
   }
 }
