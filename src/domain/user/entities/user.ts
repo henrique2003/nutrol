@@ -20,5 +20,5 @@ export class User {
     public numberOfMeals?: NumberOfMeals,
     public preferences?: string,
     public restrictions?: string,
-  ){}
+  ) {}
 }

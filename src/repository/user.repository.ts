@@ -1,30 +1,45 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import * as WebBrowser from 'expo-web-browser';
 import { User } from "../domain/user/entities/user";
 import { supabase } from "../infra/supabase/supabase";
 import { Result } from "../utils/result/result";
 
 export class UserRepository {
-  public async findByEmail(email: string): Promise<Result<User>> {
+  public async findByEmail(email: string): Promise<Result<User | null>> {
     try {
       const { data, error } = await supabase
           .from("users_tb")
           .select("*")
           .eq("email", email)
           .maybeSingle();
-
         if (error) {
-          return Result.failure("Erro ao buscar usuário");
+          return Result.failure("Erro ao buscar usuário por email.");
         }
 
         if (!data) {
-          return Result.failure("Usuário não encontrado");
+          return Result.success(null);
         }
 
-        const user = data as User;
+        const user = new User(
+          data.id,
+          data.email,
+          data.name,
+          '',
+          data.age || undefined,
+          data.height || undefined,
+          data.weight || undefined,
+          data.eating_style || undefined,
+          data.goal_weight || undefined,
+          data.goal_date || undefined,
+          data.exercise_frequency || undefined,
+          data.number_of_meals || undefined,
+          data.preferences || undefined,
+          data.restrictions || undefined,
+        )
 
         return Result.success(user);
     } catch (error) {
-      return Result.failure('Erro ao buscar usuário')
+      return Result.failure('Erro ao buscar usuário.')
     }
   }
   
@@ -54,8 +69,29 @@ export class UserRepository {
       if (error) {
         return Result.failure("Erro ao criar usuário");
       }
+        
+      if (!data) {
+        return Result.failure("Erro ao criar usuário");
+      }
 
-      return Result.success(data as User);
+      const newUser = new User(
+        data.id,
+        data.email,
+        data.name,
+        '',
+        data.age || undefined,
+        data.height || undefined,
+        data.weight || undefined,
+        data.eating_style || undefined,
+        data.goal_weight || undefined,
+        data.goal_date || undefined,
+        data.exercise_frequency || undefined,
+        data.number_of_meals || undefined,
+        data.preferences || undefined,
+        data.restrictions || undefined,
+      )
+
+      return Result.success(newUser);
     } catch (error) {
       return Result.failure('Erro ao buscar usuário')
     }
@@ -88,89 +124,167 @@ export class UserRepository {
         return Result.failure("Erro ao atualizar usuário");
       }
 
-      return Result.success(data as User);
+      if (!data) {
+        return Result.failure("Erro ao atualizar usuário");
+      }
+
+      const updatedUser = new User(
+        data.id,
+        data.email,
+        data.name,
+        '',
+        data.age || undefined,
+        data.height || undefined,
+        data.weight || undefined,
+        data.eating_style || undefined,
+        data.goal_weight || undefined,
+        data.goal_date || undefined,
+        data.exercise_frequency || undefined,
+        data.number_of_meals || undefined,
+        data.preferences || undefined,
+        data.restrictions || undefined,
+      )
+
+      return Result.success(updatedUser);
     } catch (error) {
       return Result.failure('Erro ao buscar usuário')
     }
   }
   
-  public async authWithGoogle(): Promise<Result<User>> {
+  public async authWithGoogle(provider: 'google' | 'apple'): Promise<Result<User>> {
     try {
-    // 1. Login OAuth
-    const { data: oauthData, error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: "exp://localhost", // ou seu deep link do Expo
+      const redirectTo = 'nutrol://auth/callback';
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: {
+          redirectTo,
+        },
+      });
+      if (error) {
+        return Result.failure("Erro ao obter google url.");
       }
-    });
 
-    if (oauthError) {
-      console.log("OAuth error:", oauthError);
-      return Result.failure("Erro ao autenticar com Google.");
+      if (!data?.url) {
+        return Result.failure("Erro ao obter url de autenticação do Google.");
+      }
+
+      const result = await WebBrowser.openAuthSessionAsync(
+        data.url,
+        redirectTo
+      );
+
+      if (result.type !== 'success' || !result.url) {
+        return Result.failure("Erro ao autenticar com Google.");
+      }
+
+      const [, fragment] = result.url.split('#');
+      if (!fragment) {
+        return Result.failure("Erro ao obter informações do Google.");
+      }
+
+      const params = new URLSearchParams(fragment);
+      const access_token = params.get('access_token');
+      const refresh_token = params.get('refresh_token');
+
+      if (!access_token || !refresh_token) {
+        return Result.failure("Erro ao obter tokens do Google.");
+      }
+
+      const {
+        data: {
+          user: authUser
+        },
+        error: authError
+      } = await supabase.auth.setSession({
+        access_token,
+        refresh_token,
+      });
+      if (authError || !authUser) {
+        return Result.failure("Erro ao autenticar com Google.");
+      }
+
+      const { data: existingUser, error: findError } = await supabase
+        .from("users_tb")
+        .select("*")
+        .eq("id", authUser.id)
+        .single();
+
+      if (findError && findError.code !== "PGRST116") {
+        return Result.failure("Erro ao buscar usuário na base.");
+      }
+
+      if (existingUser) {
+        const user = new User(
+          existingUser.id,
+          existingUser.email,
+          existingUser.name,
+          '',
+          existingUser.age || undefined,
+          existingUser.height || undefined,
+          existingUser.weight || undefined,
+          existingUser.eating_style || undefined,
+          existingUser.goal_weight || undefined,
+          existingUser.goal_date || undefined,
+          existingUser.exercise_frequency || undefined,
+          existingUser.number_of_meals || undefined,
+          existingUser.preferences || undefined,
+          existingUser.restrictions || undefined,
+        )
+        
+        return Result.success(user);
+      }
+
+      const newUser = {
+        id: authUser.id,
+        name: authUser.user_metadata?.full_name ?? "",
+        email: authUser.email ?? "",
+        password: '',
+        age: null,
+        height: null,
+        weight: null,
+        eating_style: null,
+        goal_weight: null,
+        goal_date: null,
+        exercise_frequency: null,
+        number_of_meals: null,
+        preferences: null,
+        restrictions: null,
+      };
+
+      const { data: insertedUser, error: insertError } = await supabase
+        .from("users_tb")
+        .insert(newUser)
+        .select()
+        .single();
+
+      if (insertError) {
+        return Result.failure(insertError.message);
+      }
+
+      if (!insertedUser) {
+        return Result.failure("Erro ao criar usuário na base.");
+      }
+
+      const user = new User(
+        insertedUser.id,
+        insertedUser.email,
+        insertedUser.name,
+        '',
+        insertedUser.age || undefined,
+        insertedUser.height || undefined,
+        insertedUser.weight || undefined,
+        insertedUser.eating_style || undefined,
+        insertedUser.goal_weight || undefined,
+        insertedUser.goal_date || undefined,
+        insertedUser.exercise_frequency || undefined,
+        insertedUser.number_of_meals || undefined,
+        insertedUser.preferences || undefined,
+        insertedUser.restrictions || undefined,
+      )
+
+      return Result.success(user);
+    } catch (error) {
+      return Result.failure("Erro inesperado ao autenticar com Google.");
     }
-
-    // Aqui o Supabase redireciona -> o app volta -> sessão já está criada.
-    // Então agora buscamos o usuário autenticado:
-    const { data: sessionData } = await supabase.auth.getUser();
-
-    const authUser = sessionData?.user;
-    if (!authUser) {
-      return Result.failure("Não foi possível obter o usuário autenticado.");
-    }
-
-    // 2. Buscar o perfil no users_tb
-    const { data: existingUser, error: findError } = await supabase
-      .from("users_tb")
-      .select("*")
-      .eq("id", authUser.id)
-      .single();
-
-    if (findError && findError.code !== "PGRST116") {
-      return Result.failure("Erro ao buscar usuário na base.");
-    }
-
-    // 3. Se o usuário já existe → retorna ele
-    if (existingUser) {
-      return Result.success(existingUser as User);
-    }
-
-    // 4. Criar novo usuário na tabela users_tb
-    const name = authUser.user_metadata?.full_name ?? "";
-    const email = authUser.email ?? "";
-
-    const newUser = {
-      id: authUser.id,
-      name,
-      email,
-      password: null,
-      age: null,
-      height: null,
-      weight: null,
-      eating_style: null,
-      goal_weight: null,
-      goal_date: null,
-      exercise_frequency: null,
-      number_of_meals: null,
-      preferences: null,
-      restrictions: null,
-    };
-
-    const { data: insertedUser, error: insertError } = await supabase
-      .from("users_tb")
-      .insert(newUser)
-      .select()
-      .single();
-
-    if (insertError) {
-      console.log(insertError);
-      return Result.failure("Erro ao criar perfil do usuário.");
-    }
-
-    return Result.success(insertedUser as User);
-
-  } catch (error) {
-    console.log("ERROR:", error);
-    return Result.failure("Erro inesperado ao autenticar com Google.");
-  }
   }
 }

@@ -2,12 +2,11 @@ import { logo } from "@/src/assets"
 import { AppleButton } from "@/src/components/core/buttons/apple-button/apple-button"
 import { GoogleButton } from "@/src/components/core/buttons/google-button/google-button"
 import { Container } from "@/src/components/core/container/container/container"
-import { router } from "expo-router"
 import { Image, Platform, Text, View } from "react-native"
-import { useInitial } from "./props"
+import { useInitial } from "./hook"
 
 export const Initial: React.FC = () => {
-  const { handleClickLoginWithGoogle } = useInitial()
+  const { handleClickLogin } = useInitial()
 
   return (
     <Container>
@@ -20,9 +19,9 @@ export const Initial: React.FC = () => {
         </View>
         <View className="w-full gap-3">
           {Platform.OS === 'ios' && (
-            <AppleButton onPress={() => router.push('/onboarding/eating-style')} />
+            <AppleButton onPress={async () => handleClickLogin('apple')} />
           )}
-          <GoogleButton onPress={async () => handleClickLoginWithGoogle()} />
+          <GoogleButton onPress={async () => handleClickLogin('google')} />
         </View>
       </View>
     </Container>

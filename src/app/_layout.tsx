@@ -11,9 +11,12 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 
 import "@/src/styles/global.css";
+import * as WebBrowser from "expo-web-browser";
 import 'react-native-get-random-values';
 import Toast from 'react-native-toast-message';
 import { AuthProvider } from '../context/auth/auth';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function RootLayout() {
   const [loaded] = useFonts({
