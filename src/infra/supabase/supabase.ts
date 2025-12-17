@@ -1,10 +1,10 @@
 import { Database } from "@/supabase/types/nutrol.types";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 export class SupabaseAuth {
   private static instance: ReturnType<typeof createClient<Database>>;
 
-  static getInstance() {
+  static getInstance(): SupabaseClient<Database> {
     if (!SupabaseAuth.instance) {
       SupabaseAuth.instance = createClient<Database>(
         process.env.EXPO_PUBLIC_SUPABASE_URL!,
