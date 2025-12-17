@@ -11,7 +11,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
   }
 
   if (!isAuthorized) {
-    return <Redirect href={'/auth/login'} withAnchor={false} />;
+    return <Redirect href={'/'} withAnchor={false} />;
   }
 
   return (
