@@ -287,4 +287,48 @@ export class UserRepository {
       return Result.failure("Erro inesperado ao autenticar com Google.");
     }
   }
+
+  public async load(): Promise<Result<User>> {
+    try {
+      const user = await supabase.auth.getSession();
+      if (!user.data.session?.user || !user.data.session?.user.id) {
+        return Result.failure("Usuário não autenticado.");
+      }
+
+      const { data, error } = await supabase
+        .from("users_tb")
+        .select("*")
+        .eq("id", user.data.session.user.id)
+        .single();
+
+      if (error) {
+        return Result.failure("Erro ao carregar usuário.");
+      }
+
+      if (!data) {
+        return Result.failure("Usuário não encontrado.");
+      }
+
+      const loadedUser = new User(
+        data.id,
+        data.email,
+        data.name,
+        '',
+        data.age || undefined,
+        data.height || undefined,
+        data.weight || undefined,
+        data.eating_style || undefined,
+        data.goal_weight || undefined,
+        data.goal_date || undefined,
+        data.exercise_frequency || undefined,
+        data.number_of_meals || undefined,
+        data.preferences || undefined,
+        data.restrictions || undefined,
+      )
+
+      return Result.success(loadedUser);
+    } catch (error) {
+      return Result.failure("Erro ao carregar usuário."); 
+    }
+  }
 }

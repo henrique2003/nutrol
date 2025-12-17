@@ -1,7 +1,5 @@
 import { User } from '@/src/domain/user/entities/user';
-import { StorageManager } from '@/src/utils/storage-manager/storage-manager';
-import { router } from 'expo-router';
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { AuthContextType } from './types';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,18 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }))
   }
 
-  useEffect(() => {
-    (async () => {
-      // await StorageManager.clear()
-
-      const result = await StorageManager.getItem<User>('user')      
-      if (!result || !result.getValue()) {
-        return router.push('/')
-      }
-
-      setUser(result.getValue()!)
-    })()
-  }, [])
+  // await StorageManager.clear()
 
   return (
     <AuthContext.Provider value={{ defineUser, user }}>
